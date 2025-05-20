@@ -8,13 +8,23 @@ Color lightBlue = {226, 240, 243, 255};
 int cellSize = 30;
 // int cellSize2 = 9;
 int cellCount = 25;
+double lastupdatetime=0;
 
+bool evenTriggered(double interval)
+{
+    double currentTime = GetTime();
+    if(currentTime - lastupdatetime>=interval){
+        lastupdatetime = currentTime;
+        return true;
+    }
+    return false;
+}
 class doraemon
 {
 public :
+    
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     doraemon()
     {
@@ -32,18 +42,19 @@ public :
         DrawTexture(texture,position.x*20,position.y*30,WHITE);
 
     }
-
-
+    void EndDrawing(){
+        EndDrawing();
+    }  
 
 
 };
-class dora
+class dora //dorayaki
 {
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
-
+    int posidora;
+    
     dora()
     {
         Image image = LoadImage("gg/dora.png");
@@ -61,17 +72,20 @@ public :
 
     }
 
-
-
+    void Update_dora()
+    {
+        position.x-=0.5;
+        posidora = position.y*10;
+    }
 
 };
 
-class nobe
+class nobe //nobita
 {
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
+    int posinobe;
 
     nobe()
     {
@@ -90,7 +104,11 @@ public :
 
     }
 
-
+    void Update_nobe()
+    {
+        position.x-=0.5;
+        posinobe = position.y*30;
+    }
 
 
 };
@@ -99,7 +117,7 @@ class rat
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
+    int posirat;
 
     rat()
     {
@@ -118,7 +136,11 @@ public :
 
     }
 
-
+    void Update_rat()
+    {
+        position.x-=0.5;
+        posirat = position.y*63;
+    }
 
 
 };
@@ -128,7 +150,6 @@ class dora2
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     dora2()
     {
@@ -156,7 +177,6 @@ class che
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     che()
     {
@@ -175,6 +195,10 @@ public :
 
     }
 
+    void Update_che()
+    {
+        position.x-=1;
+    }
 
 
 
@@ -184,7 +208,6 @@ class papa1
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     papa1()
     {
@@ -212,7 +235,6 @@ class papa2
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     papa2()
     {
@@ -240,7 +262,6 @@ class red1
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     red1()
     {
@@ -268,7 +289,6 @@ class red2
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     red2()
     {
@@ -296,7 +316,6 @@ class red3
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     red3()
     {
@@ -324,7 +343,6 @@ class red4
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     red4()
     {
@@ -343,16 +361,12 @@ public :
 
     }
 
-
-
-
 };
 class red5
 {
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-   
 
     red5()
     {
@@ -371,9 +385,26 @@ public :
 
     }
 
+};
 
+class game{
+public:
+    doraemon Doraemon = doraemon();
+    dora Dora = dora();
+    nobe Nobe = nobe();
+    rat Rat = rat ();
+    che Che = che();
 
-
+    void update(){
+        Dora.Update_dora();
+        Nobe.Update_nobe();
+        Rat.Update_rat();
+        Che.Update_che();
+    }
+    void CheckcollisionWithFood(){
+        //mon y 0 6 12
+        
+    }
 };
 int main () 
 {
@@ -394,9 +425,28 @@ int main ()
     red3 Rad3 = red3();
     red4 Rad4 = red4();
     red5 Rad5 = red5();
+    game Game = game();
 
     while (WindowShouldClose () == false)
     {
+        // if()
+        if(evenTriggered(1.5)){
+            Dora.Update_dora();
+            Rat.Update_rat();
+            Nobe.Update_nobe();
+        }
+        if(IsKeyPressed(KEY_W)){
+            Doraemon.position.y+=6;
+        }
+        if(IsKeyPressed(KEY_S)){
+            Doraemon.position.y-=6;
+        }
+        if(Nobe.position.x<=0){
+            ;
+        }
+        //บน 60 กลาง 180 ล่าง 378
+
+        //3.Drawing
         BeginDrawing();
 
         ClearBackground(lightBlue);
@@ -415,14 +465,9 @@ int main ()
         Rad5.Draw();
         EndDrawing ();
 
-
-
-
-
     }
     CloseWindow();
     return 0;
 
 }
-
    
