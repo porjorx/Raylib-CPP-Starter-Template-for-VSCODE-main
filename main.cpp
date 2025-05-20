@@ -42,9 +42,6 @@ public :
         DrawTexture(texture,position.x*20,position.y*30,WHITE);
 
     }
-    void EndDrawing(){
-        EndDrawing();
-    }  
 
 
 };
@@ -441,11 +438,17 @@ int main ()
         if(IsKeyPressed(KEY_S)){
             Doraemon.position.y-=6;
         }
-        if(Nobe.position.x<=0){
-            ;
+        if(Nobe.position.x==0){
+            Nobe.position.x+=5;
+        }
+        if(Dora.position.x==0.5){
+            Dora.position.x+=10;
+        }
+        if(Rat.position.x==0){
+            Rat.position.x+=5;
         }
         //บน 60 กลาง 180 ล่าง 378
-
+       
         //3.Drawing
         BeginDrawing();
 
