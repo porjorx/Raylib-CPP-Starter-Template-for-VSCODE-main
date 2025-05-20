@@ -433,7 +433,7 @@ int main ()
     while (WindowShouldClose () == false)
     {
         // if()
-        if(evenTriggered(0.02)){
+        if(evenTriggered(0.01)){
             Dora.Update_dora();
             Rat.Update_rat();
             Nobe.Update_nobe();
@@ -444,7 +444,7 @@ int main ()
         if(IsKeyPressed(KEY_S)){
             Doraemon.position.y-=6;
         }
-        if(Nobe.position.x<=0.6){
+        if(Nobe.position.x<=0.7){
             Nobe.position.x+=10;
             
             float oldY = Nobe.position.y;
@@ -454,12 +454,24 @@ int main ()
             } while (newY == oldY);
             Nobe.position.y = newY;
         }
-        if(Dora.position.x<=0.6){
+        if(Dora.position.x<=0.7){
             Dora.position.x+=10;
+            float oldY = Dora.position.y;
+            float newY;
+            do {
+                newY = getRandomYPosition();
+            } while (newY == oldY);
+            Dora.position.y = newY;
             //cout<<Dora.position.x<<endl;
         }
-        if(Rat.position.x<=0.6){
-            Rat.position.x;
+        if(Rat.position.x<=0.7){
+            Rat.position.x += 10;
+            float oldY = Rat.position.y;
+            float newY;
+            do {
+                newY = getRandomYPosition();
+            } while (newY == oldY);
+            Rat.position.y = newY;
         }
         //บน 60 กลาง 180 ล่าง 378
         
