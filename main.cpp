@@ -19,11 +19,17 @@ bool evenTriggered(double interval)
     }
     return false;
 }
+
+int getRandomYPosition()
+{
+    int choices[3] = {60, 180, 378};
+    return (float)choices[GetRandomValue(0, 2)];
+}
 class doraemon
 {
 public :
     
-    Vector2 position ={2,6};
+    Vector2 position ={2,0};
     Texture2D texture;
 
     doraemon()
@@ -31,6 +37,7 @@ public :
         Image image = LoadImage("gg/doraemon.png");
         texture = LoadTextureFromImage(image);
         UnloadImage(image);
+
 
     }
     ~doraemon()
@@ -48,16 +55,15 @@ public :
 class dora //dorayaki
 {
 public :
-    Vector2 position ={2,6};
+    Vector2 position ={2,0};
     Texture2D texture;
-    int posidora;
     
     dora()
     {
         Image image = LoadImage("gg/dora.png");
         texture = LoadTextureFromImage(image);
         UnloadImage(image);
-
+        position.y = getRandomYPosition();
     }
     ~dora()
     {
@@ -65,14 +71,14 @@ public :
     }
     void Draw()
     {
-        DrawTexture(texture,position.x*120,position.y*10,WHITE);
+        DrawTexture(texture,position.x*120,position.y,WHITE);
 
     }
 
     void Update_dora()
     {
-        position.x-=0.5;
-        posidora = position.y*10;
+        position.x-=0.01;
+        
     }
 
 };
@@ -82,14 +88,14 @@ class nobe //nobita
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-    int posinobe;
+  
 
     nobe()
     {
         Image image = LoadImage("gg/nobe.png");
         texture = LoadTextureFromImage(image);
         UnloadImage(image);
-
+        position.y = getRandomYPosition();
     }
     ~nobe()
     {
@@ -97,14 +103,14 @@ public :
     }
     void Draw()
     {
-        DrawTexture(texture,position.x*220,position.y*30,WHITE);
+        DrawTexture(texture,position.x*220,position.y,WHITE);
 
     }
 
     void Update_nobe()
     {
-        position.x-=0.5;
-        posinobe = position.y*30;
+        position.x-=0.01;
+        
     }
 
 
@@ -114,14 +120,14 @@ class rat
 public :
     Vector2 position ={2,6};
     Texture2D texture;
-    int posirat;
+    
 
     rat()
     {
         Image image = LoadImage("gg/rat.png");
         texture = LoadTextureFromImage(image);
         UnloadImage(image);
-
+        position.y = getRandomYPosition();
     }
     ~rat()
     {
@@ -129,14 +135,14 @@ public :
     }
     void Draw()
     {
-        DrawTexture(texture,position.x*320,position.y*63,WHITE);
+        DrawTexture(texture,position.x*320,position.y,WHITE);
 
     }
 
     void Update_rat()
     {
-        position.x-=0.5;
-        posirat = position.y*63;
+        position.x-=0.01;
+        
     }
 
 
@@ -427,7 +433,7 @@ int main ()
     while (WindowShouldClose () == false)
     {
         // if()
-        if(evenTriggered(1.5)){
+        if(evenTriggered(0.02)){
             Dora.Update_dora();
             Rat.Update_rat();
             Nobe.Update_nobe();
@@ -438,17 +444,25 @@ int main ()
         if(IsKeyPressed(KEY_S)){
             Doraemon.position.y-=6;
         }
-        if(Nobe.position.x==0){
-            Nobe.position.x+=5;
+        if(Nobe.position.x<=0.6){
+            Nobe.position.x+=10;
+            
+            float oldY = Nobe.position.y;
+            float newY;
+            do {
+                newY = getRandomYPosition();
+            } while (newY == oldY);
+            Nobe.position.y = newY;
         }
-        if(Dora.position.x==0.5){
+        if(Dora.position.x<=0.6){
             Dora.position.x+=10;
+            //cout<<Dora.position.x<<endl;
         }
-        if(Rat.position.x==0){
-            Rat.position.x+=5;
+        if(Rat.position.x<=0.6){
+            Rat.position.x;
         }
         //บน 60 กลาง 180 ล่าง 378
-       
+        
         //3.Drawing
         BeginDrawing();
 
